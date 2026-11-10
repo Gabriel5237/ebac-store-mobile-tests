@@ -24,9 +24,9 @@ export const config = {
         // }
 
         {
-            platformName: 'Android',
+            platformName: 'iOS',
             'appium:app': 'storage:filename=ebacshop (1).aab', // The filename of the mobile app
-            'appium:deviceName': 'Samsung.*',
+            'appium:deviceName': 'iPhone 15.*',
             'appium:platformVersion': '10',
             'appium:automationName': 'UiAutomator2',
             "appium:disableIdLocatorAutocompletion": true,
