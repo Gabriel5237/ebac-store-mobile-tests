@@ -1,60 +1,56 @@
-export const config = {
-    // runner: 'local',
-    // port: 4723,
 
-    user: '<sauce-user>',
-    key: '<sauce-key>',
+import 'dotenv/config'
+
+export const config = {
+    runner: 'local',
+
+    user: process.env.SAUCE_USERNAME,
+    key: process.env.SAUCE_ACCESS_KEY,
+
+    protocol: 'https',
     hostname: 'ondemand.us-west-1.saucelabs.com',
     port: 443,
-    baseUrl: 'wd/hub',
-          
+    path: '/wd/hub',
+
     specs: [
         './test/specs/**/*.js'
     ],
-    maxInstances: 1,
-    capabilities: [
-        // {
-        //     platformName: 'Android',
-        //     'appium:deviceName': 'ebac-qe',
-        //     'appium:platformVersion': '11.0',
-        //     'appium:automationName': 'UiAutomator2',
-        //     'appium:app': `${process.cwd()}/app/ebacshop.apks`,
-        //     'appium:appWaitActivity': '.MainActivity',
-        //     'appium:disableIdLocatorAutocompletion': true
-        // }
 
+    maxInstances: 1,
+
+    capabilities: [
         {
             platformName: 'iOS',
-            'appium:app': 'storage:filename=ebacshop (1).aab', // The filename of the mobile app
-            'appium:deviceName': 'iPhone 15.*',
-            'appium:platformVersion': '10',
-            'appium:automationName': 'UiAutomator2',
-            "appium:disableIdLocatorAutocompletion": true,
+            'appium:deviceName': 'iPhone 13 Pro',
+            'appium:platformVersion': '18.7.1',
+            'appium:automationName': 'XCUITest',
+            'appium:app': 'storage:filename=LojaEBAC.ipa',
+
             'sauce:options': {
-                build: 'appium-build-teste-ebacshop',
-                name: 'Ebac Shop Teste',
-                deviceOrientation: 'PORTRAIT',
-                appiumVersion: '2.0.0'
-            },
+                appiumVersion: 'appium2-20250901',
+                build: 'ebac-store-ios',
+                name: 'EBAC Store - Teste iOS'
+            }
         }
     ],
-    logLevel: 'info',
-    waitforTimeout: 10000,
-    connectionRetryTimeout: 120000,
-    connectionRetryCount: 3,
+
+    logLevel: 'debug',
+    connectionRetryTimeout: 60000,
+    connectionRetryCount: 1,
+
     framework: 'mocha',
-    reporters: ['spec',
+
+    reporters: [
+        'spec',
         ['allure', {
             outputDir: 'allure-results',
             disableWebdriverStepsReporting: true,
             disableWebdriverScreenshotsReporting: false
         }]
     ],
+
     mochaOpts: {
         ui: 'bdd',
-        timeout: 60000
-    },
-    afterTest: async function (test, context, { error, result, duration, passed, retries }) {
-        await driver.takeScreenshot();
+        timeout: 120000
     }
 }

@@ -1,15 +1,23 @@
+
 import { $ } from '@wdio/globals'
 
 class HomePage {
 
-    async openMenu(menu){
-        await $(`id:tab-${menu}`).click()
+    async openMenu(menu) {
+        const menuButton = await $(`~tab-${menu}`)
+
+        await menuButton.waitForDisplayed()
+        await menuButton.click()
     }
 
-    async search(){
-        (await $(`-ios predicate string:name ENDSWITH "Search Products`)).click()
-    }
+    async search() {
+        const searchButton = await $(
+            '-ios predicate string:label CONTAINS "Search Products" OR name CONTAINS "Search Products"'
+        )
 
+        await searchButton.waitForDisplayed()
+        await searchButton.click()
+    }
 }
 
-export default new HomePage();
+export default new HomePage()

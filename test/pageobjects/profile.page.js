@@ -1,9 +1,17 @@
+
 import { $ } from '@wdio/globals'
 
 class ProfilePage {
-    async profileName (name){
-        return await $(`//android.widget.TextView[@text="${name}"]`)
+
+    async profileName(name) {
+        const profile = await $(
+            `-ios predicate string:label == "${name}" OR name == "${name}"`
+        )
+
+        await profile.waitForDisplayed()
+
+        return profile
     }
 }
 
-export default new ProfilePage();
+export default new ProfilePage()

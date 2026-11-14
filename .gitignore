@@ -1,3 +1,25 @@
-node_modules
-allure-report
-allure-results
+
+# Dependências
+node_modules/
+
+# Relatórios de testes
+allure-report/
+allure-results/
+
+# Credenciais e variáveis de ambiente
+.env
+.env.*
+!.env.example
+
+# Aplicativos e arquivos de instalação
+*.ipa
+*.app/
+*.aab
+*.apk
+
+# Certificados e chaves
+*.keystore
+*.jks
+
+# Logs
+*.log

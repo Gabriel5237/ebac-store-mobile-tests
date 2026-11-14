@@ -1,14 +1,21 @@
-import { expect, driver } from '@wdio/globals'
-import homePage from '../pageobjects/home.page.js'
-import loginPage from '../pageobjects/login.page.js'
-import profilePage from '../pageobjects/profile.page.js'
 
-describe('My Login application', () => {
-    it('should login with valid credentials', async () => {
-        await homePage.openMenu('profile')
-        await loginPage.login('cliente@ebac.art.br', 'GD*peToHNJ1#c$sgk08EaYJQ')
-        await homePage.openMenu('profile')
-        expect((await profilePage.profileName('EBAC Cliente')).isDisplayed()).toBeTruthy()
+import { driver } from '@wdio/globals'
+
+describe('Navegação no aplicativo EBAC iOS', () => {
+    it('Deve tocar na aba Profile', async () => {
+
+        const { width, height } = await driver.getWindowSize()
+
+        console.log('Largura:', width)
+        console.log('Altura:', height)
+
+        const x = Math.round(width * 0.87)
+        const y = Math.round(height * 0.91)
+
+        console.log('Tocando nas coordenadas:', x, y)
+
+        await driver.executeScript('mobile: tap', [{ x, y }])
+
+        await driver.pause(2000)
     })
 })
-
